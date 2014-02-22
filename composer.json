@@ -9,8 +9,8 @@
         }
     ],
 	"support": {
-		"issues": "https://github.com/ramsey/array_column/issues",
-		"source": "https://github.com/ramsey/array_column"
+		"issues": "https://github.com/jakeasmith/http_build_url/issues",
+		"source": "https://github.com/jakeasmith/http_build_url"
 	},
     "require-dev": {
 		"phpunit/phpunit": "~3.7"
