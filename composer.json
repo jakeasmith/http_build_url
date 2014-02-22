@@ -1,6 +1,6 @@
 {
     "name": "jakeasmith/http_build_url",
-    "description": "Provides functionality for http_build_url() to projects without pecl_http.",
+    "description": "Provides functionality for http_build_url() to environments without pecl_http.",
     "license": "MIT",
     "authors": [
         {
