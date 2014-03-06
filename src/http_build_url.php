@@ -57,9 +57,9 @@ if (!function_exists('http_build_url')) {
 	 *                       composed url like parse_url() would return
 	 * @return string
 	 */
-	function http_build_url($url, $parts = [], $flags = HTTP_URL_REPLACE, &$new_url = [])
+	function http_build_url($url, $parts = array(), $flags = HTTP_URL_REPLACE, &$new_url = array())
 	{
-		$keys = ['user', 'pass', 'port', 'path', 'query', 'fragment'];
+		$keys = array('user', 'pass', 'port', 'path', 'query', 'fragment');
 		$url  = parse_url($url);
 
 		// HTTP_URL_STRIP_ALL and HTTP_URL_STRIP_AUTH cover several other flags.
@@ -72,7 +72,7 @@ if (!function_exists('http_build_url')) {
 		}
 
 		// Schema and host are alwasy replaced
-		foreach (['scheme', 'host'] as $part) {
+		foreach (array('scheme', 'host') as $part) {
 			if (isset($parts[$part])) {
 				$url[$part] = $parts[$part];
 			}
