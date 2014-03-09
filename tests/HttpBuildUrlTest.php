@@ -50,6 +50,14 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($expected, $actual);
 	}
 
+	public function testNewUrl()
+	{
+		$expected = parse_url($this->full_url);
+		http_build_url($this->full_url, null, null, $actual);
+
+		$this->assertEquals($expected, $actual);
+	}
+
 	/**
 	 * @dataProvider queryProvider
 	 */

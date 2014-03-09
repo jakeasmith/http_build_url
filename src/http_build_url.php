@@ -160,6 +160,8 @@ if (!function_exists('http_build_url')) {
 			$parsed_string .= '#' . $url['fragment'];
 		}
 
+		$new_url = $url;
+
 		return $parsed_string;
 	}
 }
