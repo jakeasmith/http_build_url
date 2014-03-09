@@ -48,9 +48,9 @@ if (!function_exists('http_build_url')) {
 	 * The parts of the second URL will be merged into the first according to
 	 * the flags argument.
 	 *
-	 * @param       $url     (part(s) of) an URL in form of a string or
+	 * @param mixed $url     (part(s) of) an URL in form of a string or
 	 *                       associative array like parse_url() returns
-	 * @param array $parts   same as the first argument
+	 * @param mixed $parts   same as the first argument
 	 * @param int   $flags   a bitmask of binary or'ed HTTP_URL constants;
 	 *                       HTTP_URL_REPLACE is the default
 	 * @param array $new_url if set, it will be filled with the parts of the
@@ -59,8 +59,10 @@ if (!function_exists('http_build_url')) {
 	 */
 	function http_build_url($url, $parts = array(), $flags = HTTP_URL_REPLACE, &$new_url = array())
 	{
+		is_array($url) || $url = parse_url($url);
+		is_array($parts) || $parts = parse_url($parts);
+
 		$keys = array('user', 'pass', 'port', 'path', 'query', 'fragment');
-		$url  = parse_url($url);
 
 		// HTTP_URL_STRIP_ALL and HTTP_URL_STRIP_AUTH cover several other flags.
 		if ($flags & HTTP_URL_STRIP_ALL) {
@@ -86,7 +88,7 @@ if (!function_exists('http_build_url')) {
 			}
 		} else {
 			if (isset($parts['path']) && ($flags & HTTP_URL_JOIN_PATH)) {
-				if (isset($url['path'])) {
+				if (isset($url['path']) && substr($parts['path'], 0, 1) !== '/') {
 					$url['path'] = rtrim(
 							str_replace(basename($url['path']), '', $url['path']),
 							'/'
@@ -136,13 +138,19 @@ if (!function_exists('http_build_url')) {
 			$parsed_string .= '@';
 		}
 
-		$parsed_string .= $url['host'] ? : '';
+		if (isset($url['host'])) {
+			$parsed_string .= $url['host'];
+		}
 
 		if (isset($url['port'])) {
 			$parsed_string .= ':' . $url['port'];
 		}
 
-		$parsed_string .= $url['path'] ? : '';
+		if (isset($url['path'])) {
+			$parsed_string .= $url['path'];
+		} else {
+			$parsed_string .= '/';
+		}
 
 		if (isset($url['query'])) {
 			$parsed_string .= '?' . $url['query'];
