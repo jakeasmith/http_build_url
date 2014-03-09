@@ -55,7 +55,7 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testJoinQuery($query, $expected)
 	{
-		$actual = http_build_url($this->full_url, ['query' => $query], HTTP_URL_JOIN_QUERY);
+		$actual = http_build_url($this->full_url, array('query' => $query), HTTP_URL_JOIN_QUERY);
 
 		$this->assertSame($expected, $actual);
 	}
@@ -65,7 +65,7 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testJoinPath($path, $expected)
 	{
-		$actual = http_build_url($this->full_url, ['path' => $path], HTTP_URL_JOIN_PATH);
+		$actual = http_build_url($this->full_url, array('path' => $path), HTTP_URL_JOIN_PATH);
 
 		$this->assertSame($expected, $actual);
 	}
@@ -75,7 +75,7 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testBitmasks($constant, $expected)
 	{
-		$actual = http_build_url($this->full_url, [], constant($constant));
+		$actual = http_build_url($this->full_url, array(), constant($constant));
 
 		$this->assertSame($expected, $actual);
 	}
