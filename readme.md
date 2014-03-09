@@ -5,7 +5,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/jakeasmith/http_build_url/v/unstable.png)](https://packagist.org/packages/jakeasmith/http_build_url)
 [![Total Downloads](https://poser.pugx.org/jakeasmith/http_build_url/downloads.png)](https://packagist.org/packages/jakeasmith/http_build_url)
 
-This simple library provides functionality for [`http_build_url()`](http://us2.php.net/manual/en/function.http-build-url.php) to environments without pecl_http. It aims to mimic the functionality of the pecl function in every way, but it is still a very young package in need of many tests.
+This simple library provides functionality for [`http_build_url()`](http://us2.php.net/manual/en/function.http-build-url.php) to environments without pecl_http. It aims to mimic the functionality of the pecl function in every way and ships with a full suite of tests that have been run against both the original function and the one in this package.
 
 ## Installation
 
