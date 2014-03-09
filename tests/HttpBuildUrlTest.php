@@ -82,35 +82,35 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 
 	public function pathProvider()
 	{
-		return [
-			['/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'],
-			['chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'],
-			['sausage/bacon/', 'http://user:pass@www.example.com:8080/pub/sausage/bacon/?a=b#files']
-		];
+		return array(
+			array('/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
+			array('chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'),
+			array('sausage/bacon/', 'http://user:pass@www.example.com:8080/pub/sausage/bacon/?a=b#files')
+		);
 	}
 
 	public function queryProvider()
 	{
-		return [
-			['a=c', 'http://user:pass@www.example.com:8080/pub/index.php?a=c#files'],
-			['d=a', 'http://user:pass@www.example.com:8080/pub/index.php?a=b&d=a#files']
-		];
+		return array(
+			array('a=c', 'http://user:pass@www.example.com:8080/pub/index.php?a=c#files'),
+			array('d=a', 'http://user:pass@www.example.com:8080/pub/index.php?a=b&d=a#files')
+		);
 	}
 
 	public function bitmaskProvider()
 	{
-		return [
-			['HTTP_URL_REPLACE', 'http://user:pass@www.example.com:8080/pub/index.php?a=b#files'],
-			['HTTP_URL_JOIN_PATH', 'http://user:pass@www.example.com:8080/pub/index.php?a=b#files'],
-			['HTTP_URL_JOIN_QUERY', 'http://user:pass@www.example.com:8080/pub/index.php?a=b#files'],
-			['HTTP_URL_STRIP_USER', 'http://www.example.com:8080/pub/index.php?a=b#files'],
-			['HTTP_URL_STRIP_PASS', 'http://user@www.example.com:8080/pub/index.php?a=b#files'],
-			['HTTP_URL_STRIP_AUTH', 'http://www.example.com:8080/pub/index.php?a=b#files'],
-			['HTTP_URL_STRIP_PORT', 'http://user:pass@www.example.com/pub/index.php?a=b#files'],
-			['HTTP_URL_STRIP_PATH', 'http://user:pass@www.example.com:8080/?a=b#files'],
-			['HTTP_URL_STRIP_QUERY', 'http://user:pass@www.example.com:8080/pub/index.php#files'],
-			['HTTP_URL_STRIP_FRAGMENT', 'http://user:pass@www.example.com:8080/pub/index.php?a=b'],
-			['HTTP_URL_STRIP_ALL', 'http://www.example.com/'],
-		];
+		return array(
+			array('HTTP_URL_REPLACE', 'http://user:pass@www.example.com:8080/pub/index.php?a=b#files'),
+			array('HTTP_URL_JOIN_PATH', 'http://user:pass@www.example.com:8080/pub/index.php?a=b#files'),
+			array('HTTP_URL_JOIN_QUERY', 'http://user:pass@www.example.com:8080/pub/index.php?a=b#files'),
+			array('HTTP_URL_STRIP_USER', 'http://www.example.com:8080/pub/index.php?a=b#files'),
+			array('HTTP_URL_STRIP_PASS', 'http://user@www.example.com:8080/pub/index.php?a=b#files'),
+			array('HTTP_URL_STRIP_AUTH', 'http://www.example.com:8080/pub/index.php?a=b#files'),
+			array('HTTP_URL_STRIP_PORT', 'http://user:pass@www.example.com/pub/index.php?a=b#files'),
+			array('HTTP_URL_STRIP_PATH', 'http://user:pass@www.example.com:8080/?a=b#files'),
+			array('HTTP_URL_STRIP_QUERY', 'http://user:pass@www.example.com:8080/pub/index.php#files'),
+			array('HTTP_URL_STRIP_FRAGMENT', 'http://user:pass@www.example.com:8080/pub/index.php?a=b'),
+			array('HTTP_URL_STRIP_ALL', 'http://www.example.com/'),
+		);
 	}
 }
