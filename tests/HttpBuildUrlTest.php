@@ -39,7 +39,7 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	public function testPartsQueryArrayIsIgnored()
 	{
 		$expected = $this->full_url;
-		$actual = http_build_url($this->full_url, ['query' => ['foo' => 'bar']]);
+		$actual = http_build_url($this->full_url, array('query' => array('foo' => 'bar')));
 
 		$this->assertSame($expected, $actual);
 	}
