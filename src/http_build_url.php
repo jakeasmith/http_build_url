@@ -62,6 +62,9 @@ if (!function_exists('http_build_url')) {
 		is_array($url) || $url = parse_url($url);
 		is_array($parts) || $parts = parse_url($parts);
 
+		is_string($url['query']) || $url['query'] = null;
+		isset($parts['query']) && is_string($parts['query']) || $parts['query'] = null;
+
 		$keys = array('user', 'pass', 'port', 'path', 'query', 'fragment');
 
 		// HTTP_URL_STRIP_ALL and HTTP_URL_STRIP_AUTH cover several other flags.

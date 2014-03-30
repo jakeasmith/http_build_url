@@ -26,6 +26,24 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($expected, $actual);
 	}
 
+	public function testUrlQueryArrayIsIgnored()
+	{
+		$expected = 'http://user:pass@www.example.com:8080/pub/index.php#files';
+		$url = parse_url($this->full_url);
+		parse_str($url['query'], $url['query']);
+		$actual = http_build_url($url);
+
+		$this->assertSame($expected, $actual);
+	}
+
+	public function testPartsQueryArrayIsIgnored()
+	{
+		$expected = $this->full_url;
+		$actual = http_build_url($this->full_url, ['query' => ['foo' => 'bar']]);
+
+		$this->assertSame($expected, $actual);
+	}
+
 	public function testAcceptStrings()
 	{
 		$expected = 'http://user:pass@foobar.com:8080/pub/index.php?a=b#files';
