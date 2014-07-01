@@ -26,10 +26,24 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($expected, $actual);
 	}
 
+	public function testTrailingSlash()
+	{
+		$expected = 'http://example.com/';
+		$actual   = http_build_url(
+			[
+				'scheme' => 'http',
+				'host'   => 'example.com',
+				'path'   => ''
+			]
+		);
+
+		$this->assertSame($expected, $actual);
+	}
+
 	public function testUrlQueryArrayIsIgnored()
 	{
 		$expected = 'http://user:pass@www.example.com:8080/pub/index.php#files';
-		$url = parse_url($this->full_url);
+		$url      = parse_url($this->full_url);
 		parse_str($url['query'], $url['query']);
 		$actual = http_build_url($url);
 
@@ -39,7 +53,7 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	public function testPartsQueryArrayIsIgnored()
 	{
 		$expected = $this->full_url;
-		$actual = http_build_url($this->full_url, array('query' => array('foo' => 'bar')));
+		$actual   = http_build_url($this->full_url, array('query' => array('foo' => 'bar')));
 
 		$this->assertSame($expected, $actual);
 	}
