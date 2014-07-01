@@ -149,7 +149,7 @@ if (!function_exists('http_build_url')) {
 			$parsed_string .= ':' . $url['port'];
 		}
 
-		if (isset($url['path'])) {
+		if (!empty($url['path'])) {
 			$parsed_string .= $url['path'];
 		} else {
 			$parsed_string .= '/';
