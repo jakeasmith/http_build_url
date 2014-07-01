@@ -30,11 +30,11 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	{
 		$expected = 'http://example.com/';
 		$actual   = http_build_url(
-			[
+			array(
 				'scheme' => 'http',
 				'host'   => 'example.com',
 				'path'   => ''
-			]
+			)
 		);
 
 		$this->assertSame($expected, $actual);
