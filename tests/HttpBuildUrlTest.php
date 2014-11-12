@@ -40,6 +40,20 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($expected, $actual);
 	}
 
+	public function testSlashIsPrependedToPath()
+	{
+		$expected = 'http://example.com/yes';
+		$actual   = http_build_url(
+			array(
+				'scheme' => 'http',
+				'host'   => 'example.com',
+				'path'   => 'yes'
+			)
+		);
+
+		$this->assertEquals($expected, $actual);
+	}
+
 	public function testUrlQueryArrayIsIgnored()
 	{
 		$expected = 'http://user:pass@www.example.com:8080/pub/index.php#files';
