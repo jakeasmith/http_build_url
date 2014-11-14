@@ -15,7 +15,7 @@ to your project's `composer.json` file:
 ``` javascript
 {
     "require": {
-        "jakeasmith/http_build_url": "~0.1.5"
+        "jakeasmith/http_build_url": "~0.1.3"
     }
 }
 ```
