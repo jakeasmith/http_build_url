@@ -118,8 +118,10 @@ if (!function_exists('http_build_url')) {
 			}
 		}
 
-		if (substr($url['path'], 0, 1) !== '/') {
-			$url['path'] = '/' . $url['path'];
+		if(isset($url['path'])) {
+			if (substr($url['path'], 0, 1) !== '/') {
+				$url['path'] = '/' . $url['path'];
+			}
 		}
 
 		foreach ($keys as $key) {
