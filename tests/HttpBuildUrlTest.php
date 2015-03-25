@@ -26,32 +26,66 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($expected, $actual);
 	}
 
-	public function testTrailingSlash()
+	public function trailingSlashProvider()
 	{
-		$expected = 'http://example.com/';
-		$actual   = http_build_url(
+		return array(
 			array(
-				'scheme' => 'http',
-				'host'   => 'example.com',
-				'path'   => ''
+				'http://example.com',
+				array(
+					'scheme' => 'http',
+					'host' => 'example.com'
+				)
+			),
+			array(
+				'http://example.com',
+				array(
+					'scheme' => 'http',
+					'host' => 'example.com',
+					'path' => ''
+				)
+			),
+			array(
+				'http://example.com/',
+				array(
+					'scheme' => 'http',
+					'host' => 'example.com',
+					'path' => '/'
+				)
+			),
+			array(
+				'http://example.com/yes',
+				array(
+					'scheme' => 'http',
+					'host' => 'example.com',
+					'path' => 'yes'
+				)
+			),
+			array(
+				'http://example.com/yes',
+				array(
+					'scheme' => 'http',
+					'host' => 'example.com',
+					'path' => '/yes'
+				)
+			),
+			array(
+				'http://example.com:81?a=b',
+				array(
+					'scheme' => 'http',
+					'host' => 'example.com',
+					'query' => 'a=b',
+					'port' => 81
+				)
 			)
 		);
-
-		$this->assertSame($expected, $actual);
 	}
 
-	public function testSlashIsPrependedToPath()
+	/**
+	 * @dataProvider trailingSlashProvider
+	 */
+	public function testTrailingSlash($expected, $config)
 	{
-		$expected = 'http://example.com/yes';
-		$actual   = http_build_url(
-			array(
-				'scheme' => 'http',
-				'host'   => 'example.com',
-				'path'   => 'yes'
-			)
-		);
-
-		$this->assertEquals($expected, $actual);
+		$this->assertEquals($expected, http_build_url($config));
 	}
 
 	public function testUrlQueryArrayIsIgnored()
@@ -161,10 +195,10 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 			array('HTTP_URL_STRIP_PASS', 'http://user@www.example.com:8080/pub/index.php?a=b#files'),
 			array('HTTP_URL_STRIP_AUTH', 'http://www.example.com:8080/pub/index.php?a=b#files'),
 			array('HTTP_URL_STRIP_PORT', 'http://user:pass@www.example.com/pub/index.php?a=b#files'),
-			array('HTTP_URL_STRIP_PATH', 'http://user:pass@www.example.com:8080/?a=b#files'),
+			array('HTTP_URL_STRIP_PATH', 'http://user:pass@www.example.com:8080?a=b#files'),
 			array('HTTP_URL_STRIP_QUERY', 'http://user:pass@www.example.com:8080/pub/index.php#files'),
 			array('HTTP_URL_STRIP_FRAGMENT', 'http://user:pass@www.example.com:8080/pub/index.php?a=b'),
-			array('HTTP_URL_STRIP_ALL', 'http://www.example.com/'),
+			array('HTTP_URL_STRIP_ALL', 'http://www.example.com'),
 		);
 	}
 }

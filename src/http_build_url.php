@@ -118,7 +118,7 @@ if (!function_exists('http_build_url')) {
 			}
 		}
 
-		if (isset($url['path']) && substr($url['path'], 0, 1) !== '/') {
+		if (isset($url['path']) && $url['path'] !== '' && substr($url['path'], 0, 1) !== '/') {
 			$url['path'] = '/' . $url['path'];
 		}
 
@@ -155,8 +155,6 @@ if (!function_exists('http_build_url')) {
 
 		if (!empty($url['path'])) {
 			$parsed_string .= $url['path'];
-		} else {
-			$parsed_string .= '/';
 		}
 
 		if (isset($url['query'])) {
