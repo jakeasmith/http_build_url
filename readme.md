@@ -9,15 +9,10 @@ This simple library provides functionality for [`http_build_url()`](http://us2.p
 
 ## Installation
 
-The easiest way to install this library is to use Composer and add the following
-to your project's `composer.json` file:
+The easiest way to install this library is to use [Composer](https://getcomposer.org/) from the command line.
 
-``` javascript
-{
-    "require": {
-        "jakeasmith/http_build_url": "~0.1.5"
-    }
-}
+``` 
+$ composer require jakeasmith/http_build_url ^1
 ```
 
 ## License
