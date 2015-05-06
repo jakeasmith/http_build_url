@@ -1,5 +1,6 @@
 language: php
 php:
+  - 5.2
   - 5.3
   - 5.4
   - 5.5
@@ -7,7 +8,9 @@ php:
   - 7
   - hhvm
 
-before_script:
-  - composer install --dev --prefer-source
-
+before_install:
+    - phpenv global 5.5
+    - composer require codeclimate/php-test-reporter --dev
+    - phpenv global "$TRAVIS_PHP_VERSION"
+    
 script: ./vendor/bin/phpunit --coverage-text
