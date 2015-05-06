@@ -1,6 +1,7 @@
 # http_build_url() for PHP
 
 [![Build Status](https://travis-ci.org/jakeasmith/http_build_url.png)](https://travis-ci.org/jakeasmith/http_build_url)
+[![Code Climate](https://codeclimate.com/github/jakeasmith/http_build_url/badges/gpa.svg)](https://codeclimate.com/github/jakeasmith/http_build_url)
 [![Latest Stable Version](https://poser.pugx.org/jakeasmith/http_build_url/v/stable.png)](https://packagist.org/packages/jakeasmith/http_build_url)
 [![Total Downloads](https://poser.pugx.org/jakeasmith/http_build_url/downloads.png)](https://packagist.org/packages/jakeasmith/http_build_url)
 
