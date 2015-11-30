@@ -76,7 +76,7 @@ if (!function_exists('http_build_url')) {
 			$flags |= HTTP_URL_STRIP_USER | HTTP_URL_STRIP_PASS;
 		}
 
-		// Schema and host are alwasy replaced
+		// Schema and host are always replaced
 		foreach (array('scheme', 'host') as $part) {
 			if (isset($parts[$part])) {
 				$url[$part] = $parts[$part];
@@ -90,8 +90,8 @@ if (!function_exists('http_build_url')) {
 				}
 			}
 		} else {
-			if (isset($parts['path']) && ($flags & HTTP_URL_JOIN_PATH)) {
-				if (isset($url['path']) && substr($parts['path'], 0, 1) !== '/') {
+			if (!empty($parts['path']) && ($flags & HTTP_URL_JOIN_PATH)) {
+				if (!empty($url['path']) && substr($parts['path'], 0, 1) !== '/') {
 					$url['path'] = rtrim(
 							str_replace(basename($url['path']), '', $url['path']),
 							'/'
@@ -101,8 +101,8 @@ if (!function_exists('http_build_url')) {
 				}
 			}
 
-			if (isset($parts['query']) && ($flags & HTTP_URL_JOIN_QUERY)) {
-				if (isset($url['query'])) {
+			if (!empty($parts['query']) && ($flags & HTTP_URL_JOIN_QUERY)) {
+				if (!empty($url['query'])) {
 					parse_str($url['query'], $url_query);
 					parse_str($parts['query'], $parts_query);
 
@@ -118,7 +118,9 @@ if (!function_exists('http_build_url')) {
 			}
 		}
 
-		if (isset($url['path']) && substr($url['path'], 0, 1) !== '/') {
+		if (!empty($url['path']) &&
+			!empty($url['host']) && // only absolute urls need leading slash
+			substr($url['path'], 0, 1) !== '/') {
 			$url['path'] = '/' . $url['path'];
 		}
 
@@ -131,11 +133,11 @@ if (!function_exists('http_build_url')) {
 
 		$parsed_string = '';
 
-		if (isset($url['scheme'])) {
+		if (!empty($url['scheme'])) {
 			$parsed_string .= $url['scheme'] . '://';
 		}
 
-		if (isset($url['user'])) {
+		if (!empty($url['user'])) {
 			$parsed_string .= $url['user'];
 
 			if (isset($url['pass'])) {
@@ -145,11 +147,11 @@ if (!function_exists('http_build_url')) {
 			$parsed_string .= '@';
 		}
 
-		if (isset($url['host'])) {
+		if (!empty($url['host'])) {
 			$parsed_string .= $url['host'];
 		}
 
-		if (isset($url['port'])) {
+		if (!empty($url['port'])) {
 			$parsed_string .= ':' . $url['port'];
 		}
 
@@ -159,11 +161,11 @@ if (!function_exists('http_build_url')) {
 			$parsed_string .= '/';
 		}
 
-		if (isset($url['query'])) {
+		if (!empty($url['query'])) {
 			$parsed_string .= '?' . $url['query'];
 		}
 
-		if (isset($url['fragment'])) {
+		if (!empty($url['fragment'])) {
 			$parsed_string .= '#' . $url['fragment'];
 		}
 
