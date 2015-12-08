@@ -92,6 +92,8 @@ if (!function_exists('http_build_url')) {
 		} else {
 			if (isset($parts['path']) && ($flags & HTTP_URL_JOIN_PATH)) {
 				if (isset($url['path']) && substr($parts['path'], 0, 1) !== '/') {
+					// Workaround for trailing slashes
+					$url['path'] .= 'a';
 					$url['path'] = rtrim(
 							str_replace(basename($url['path']), '', $url['path']),
 							'/'
