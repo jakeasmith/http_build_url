@@ -129,7 +129,7 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 		$expected = "http://site.testing.com/preview/testing/09-2013/p04/image/15.jpg";
 		$actual = http_build_url(
 			"http://site.testing.com/preview/testing/09-2013/p04/?code=asdfghjkl",
-			['path' => 'image/15.jpg'],
+			array('path' => 'image/15.jpg'),
 			HTTP_URL_JOIN_PATH | HTTP_URL_STRIP_FRAGMENT | HTTP_URL_STRIP_QUERY
 		);
 
