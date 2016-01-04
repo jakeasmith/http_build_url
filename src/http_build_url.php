@@ -133,11 +133,11 @@ if (!function_exists('http_build_url')) {
 
 		$parsed_string = '';
 
-		if (isset($url['scheme'])) {
+		if (!empty($url['scheme'])) {
 			$parsed_string .= $url['scheme'] . '://';
 		}
 
-		if (isset($url['user'])) {
+		if (!empty($url['user'])) {
 			$parsed_string .= $url['user'];
 
 			if (isset($url['pass'])) {
@@ -147,11 +147,11 @@ if (!function_exists('http_build_url')) {
 			$parsed_string .= '@';
 		}
 
-		if (isset($url['host'])) {
+		if (!empty($url['host'])) {
 			$parsed_string .= $url['host'];
 		}
 
-		if (isset($url['port'])) {
+		if (!empty($url['port'])) {
 			$parsed_string .= ':' . $url['port'];
 		}
 
@@ -159,11 +159,11 @@ if (!function_exists('http_build_url')) {
 			$parsed_string .= $url['path'];
 		}
 
-		if (isset($url['query'])) {
+		if (!empty($url['query'])) {
 			$parsed_string .= '?' . $url['query'];
 		}
 
-		if (isset($url['fragment'])) {
+		if (!empty($url['fragment'])) {
 			$parsed_string .= '#' . $url['fragment'];
 		}
 
