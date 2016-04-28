@@ -156,6 +156,10 @@ if (!function_exists('http_build_url')) {
 		}
 
 		if (!empty($url['path'])) {
+			// Clean up any /foo/../bar or /foo/./bar
+			for ($n=1; $n>0;  $url['path'] = preg_replace(array('#(/\.?/)#', '#/(?!\.\.)[^/]+/\.\./#'), '/', $url['path'], -1, $n)) {}
+			// Clean up any /../bar
+			$url['path'] = preg_replace(array('#/\.\./#'), '/', $url['path']);
 			$parsed_string .= $url['path'];
 		} else {
 			$parsed_string .= '/';

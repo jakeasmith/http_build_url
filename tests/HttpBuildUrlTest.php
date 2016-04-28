@@ -183,6 +183,7 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	public function pathProvider()
 	{
 		$url_minus_file = 'http://user:pass@www.example.com:8080/pub/?a=b#files';
+		$url_depth = 'http://user:pass@www.example.com:8080/pub1/pub2/pub3/?a=b#files';
 		return array(
 			array($this->full_url, '/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
 			array($this->full_url, 'chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'),
@@ -190,6 +191,11 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 			array($url_minus_file, '/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
 			array($url_minus_file, 'chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'),
 			array($url_minus_file, 'sausage/bacon/', 'http://user:pass@www.example.com:8080/pub/sausage/bacon/?a=b#files'),
+			array($url_depth, '../donuts/brownies', 'http://user:pass@www.example.com:8080/pub1/pub2/donuts/brownies?a=b#files'),
+			array($url_depth, '/../donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
+			array($url_depth, '../../donuts/brownies', 'http://user:pass@www.example.com:8080/pub1/donuts/brownies?a=b#files'),
+			array($url_depth, '../../../donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
+
 		);
 	}
 
