@@ -151,9 +151,9 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider pathProvider
 	 */
-	public function testJoinPath($path, $expected)
+	public function testJoinPath($url, $path, $expected)
 	{
-		$actual = http_build_url($this->full_url, array('path' => $path), HTTP_URL_JOIN_PATH);
+		$actual = http_build_url($url, array('path' => $path), HTTP_URL_JOIN_PATH);
 
 		$this->assertSame($expected, $actual);
 	}
@@ -182,10 +182,14 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 
 	public function pathProvider()
 	{
+		$url_minus_file = 'http://user:pass@www.example.com:8080/pub/?a=b#files';
 		return array(
-			array('/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
-			array('chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'),
-			array('sausage/bacon/', 'http://user:pass@www.example.com:8080/pub/sausage/bacon/?a=b#files')
+			array($this->full_url, '/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
+			array($this->full_url, 'chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'),
+			array($this->full_url, 'sausage/bacon/', 'http://user:pass@www.example.com:8080/pub/sausage/bacon/?a=b#files'),
+			array($url_minus_file, '/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
+			array($url_minus_file, 'chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'),
+			array($url_minus_file, 'sausage/bacon/', 'http://user:pass@www.example.com:8080/pub/sausage/bacon/?a=b#files'),
 		);
 	}
 
