@@ -30,14 +30,14 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	{
 		return array(
 			array(
-				'http://example.com',
+				'http://example.com/',
 				array(
 					'scheme' => 'http',
 					'host' => 'example.com'
 				)
 			),
 			array(
-				'http://example.com',
+				'http://example.com/',
 				array(
 					'scheme' => 'http',
 					'host' => 'example.com',
@@ -69,7 +69,7 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 				)
 			),
 			array(
-				'http://example.com:81?a=b',
+				'http://example.com:81/?a=b',
 				array(
 					'scheme' => 'http',
 					'host' => 'example.com',
@@ -207,10 +207,10 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 			array('HTTP_URL_STRIP_PASS', 'http://user@www.example.com:8080/pub/index.php?a=b#files'),
 			array('HTTP_URL_STRIP_AUTH', 'http://www.example.com:8080/pub/index.php?a=b#files'),
 			array('HTTP_URL_STRIP_PORT', 'http://user:pass@www.example.com/pub/index.php?a=b#files'),
-			array('HTTP_URL_STRIP_PATH', 'http://user:pass@www.example.com:8080?a=b#files'),
+			array('HTTP_URL_STRIP_PATH', 'http://user:pass@www.example.com:8080/?a=b#files'),
 			array('HTTP_URL_STRIP_QUERY', 'http://user:pass@www.example.com:8080/pub/index.php#files'),
 			array('HTTP_URL_STRIP_FRAGMENT', 'http://user:pass@www.example.com:8080/pub/index.php?a=b'),
-			array('HTTP_URL_STRIP_ALL', 'http://www.example.com'),
+			array('HTTP_URL_STRIP_ALL', 'http://www.example.com/'),
 		);
 	}
 }
