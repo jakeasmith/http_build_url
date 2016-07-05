@@ -157,6 +157,8 @@ if (!function_exists('http_build_url')) {
 
 		if (!empty($url['path'])) {
 			$parsed_string .= $url['path'];
+		} else {
+			$parsed_string .= '/';
 		}
 
 		if (!empty($url['query'])) {
