@@ -103,8 +103,8 @@ if (!function_exists('http_build_url')) {
 				}
 			}
 
-			if (isset($parts['query']) && ($flags & HTTP_URL_JOIN_QUERY)) {
-				if (isset($url['query'])) {
+			if (isset($parts['query'])) {
+				if ($flags & HTTP_URL_JOIN_QUERY && isset($url['query'])) {
 					parse_str($url['query'], $url_query);
 					parse_str($parts['query'], $parts_query);
 

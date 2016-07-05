@@ -26,6 +26,23 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($expected, $actual);
 	}
 
+	public function testExampleTwo()
+	{
+		$expected = 'ftp://ftp.example.com/pub/files/current/?a=c';
+		$actual   = http_build_url(
+			"http://user@www.example.com/pub/index.php#files",
+			array(
+				"scheme" => "ftp",
+				"host"   => "ftp.example.com",
+				"path"   => "files/current/",
+				"query"  => "a=c"
+			),
+			HTTP_URL_STRIP_AUTH | HTTP_URL_JOIN_PATH | HTTP_URL_STRIP_FRAGMENT
+		);
+
+		$this->assertSame($expected, $actual);
+	}
+
 	public function trailingSlashProvider()
 	{
 		return array(
