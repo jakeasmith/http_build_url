@@ -95,7 +95,7 @@ if (!function_exists('http_build_url')) {
 					// Workaround for trailing slashes
 					$url['path'] .= 'a';
 					$url['path'] = rtrim(
-							str_replace(basename($url['path']), '', $url['path']),
+							preg_replace('#' . basename($url['path']) . '$#', '', $url['path']),
 							'/'
 						) . '/' . ltrim($parts['path'], '/');
 				} else {
