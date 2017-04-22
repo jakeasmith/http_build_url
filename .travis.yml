@@ -11,4 +11,9 @@ php:
   - 7.1
   - hhvm
 
+-before_install:
+  - phpenv global 5.5
+  - composer require codeclimate/php-test-reporter --dev
+  - phpenv global "$TRAVIS_PHP_VERSION"
+  
 script: ./vendor/bin/phpunit --coverage-text
