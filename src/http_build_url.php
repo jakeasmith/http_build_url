@@ -95,7 +95,7 @@ if (!function_exists('http_build_url')) {
 					// Workaround for trailing slashes
 					$url['path'] .= 'a';
 					$url['path'] = rtrim(
-							str_replace(basename($url['path']), '', $url['path']),
+							preg_replace('#' . basename($url['path']) . '$#', '', $url['path']),
 							'/'
 						) . '/' . ltrim($parts['path'], '/');
 				} else {
@@ -103,8 +103,8 @@ if (!function_exists('http_build_url')) {
 				}
 			}
 
-			if (isset($parts['query']) && ($flags & HTTP_URL_JOIN_QUERY)) {
-				if (isset($url['query'])) {
+			if (isset($parts['query'])) {
+				if ($flags & HTTP_URL_JOIN_QUERY && isset($url['query'])) {
 					parse_str($url['query'], $url_query);
 					parse_str($parts['query'], $parts_query);
 
@@ -156,7 +156,13 @@ if (!function_exists('http_build_url')) {
 		}
 
 		if (!empty($url['path'])) {
+			// Clean up any /foo/../bar or /foo/./bar
+			for ($n=1; $n>0;  $url['path'] = preg_replace(array('#(/\.?/)#', '#/(?!\.\.)[^/]+/\.\./#'), '/', $url['path'], -1, $n)) {}
+			// Clean up any /../bar
+			$url['path'] = preg_replace(array('#/\.\./#'), '/', $url['path']);
 			$parsed_string .= $url['path'];
+		} else {
+			$parsed_string .= '/';
 		}
 
 		if (!empty($url['query'])) {

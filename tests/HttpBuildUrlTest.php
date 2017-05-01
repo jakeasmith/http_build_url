@@ -26,18 +26,35 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($expected, $actual);
 	}
 
+	public function testExampleTwo()
+	{
+		$expected = 'ftp://ftp.example.com/pub/files/current/?a=c';
+		$actual   = http_build_url(
+			"http://user@www.example.com/pub/index.php#files",
+			array(
+				"scheme" => "ftp",
+				"host"   => "ftp.example.com",
+				"path"   => "files/current/",
+				"query"  => "a=c"
+			),
+			HTTP_URL_STRIP_AUTH | HTTP_URL_JOIN_PATH | HTTP_URL_STRIP_FRAGMENT
+		);
+
+		$this->assertSame($expected, $actual);
+	}
+
 	public function trailingSlashProvider()
 	{
 		return array(
 			array(
-				'http://example.com',
+				'http://example.com/',
 				array(
 					'scheme' => 'http',
 					'host' => 'example.com'
 				)
 			),
 			array(
-				'http://example.com',
+				'http://example.com/',
 				array(
 					'scheme' => 'http',
 					'host' => 'example.com',
@@ -69,7 +86,7 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 				)
 			),
 			array(
-				'http://example.com:81?a=b',
+				'http://example.com:81/?a=b',
 				array(
 					'scheme' => 'http',
 					'host' => 'example.com',
@@ -151,9 +168,9 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider pathProvider
 	 */
-	public function testJoinPath($path, $expected)
+	public function testJoinPath($url, $path, $expected)
 	{
-		$actual = http_build_url($this->full_url, array('path' => $path), HTTP_URL_JOIN_PATH);
+		$actual = http_build_url($url, array('path' => $path), HTTP_URL_JOIN_PATH);
 
 		$this->assertSame($expected, $actual);
 	}
@@ -182,10 +199,19 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 
 	public function pathProvider()
 	{
+		$url_minus_file = 'http://user:pass@www.example.com:8080/pub/?a=b#files';
+		$url_depth = 'http://user:pass@www.example.com:8080/path1/path2/path3/?a=b#files';
 		return array(
-			array('/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
-			array('chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'),
-			array('sausage/bacon/', 'http://user:pass@www.example.com:8080/pub/sausage/bacon/?a=b#files')
+			array($this->full_url, '/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
+			array($this->full_url, 'chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'),
+			array($this->full_url, 'sausage/bacon/', 'http://user:pass@www.example.com:8080/pub/sausage/bacon/?a=b#files'),
+			array($url_minus_file, '/donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
+			array($url_minus_file, 'chicken/wings', 'http://user:pass@www.example.com:8080/pub/chicken/wings?a=b#files'),
+			array($url_minus_file, 'sausage/bacon/', 'http://user:pass@www.example.com:8080/pub/sausage/bacon/?a=b#files'),
+			array($url_depth, '../donuts/brownies', 'http://user:pass@www.example.com:8080/path1/path2/donuts/brownies?a=b#files'),
+			array($url_depth, '/../donuts/brownies', 'http://user:pass@www.example.com:8080/donuts/brownies?a=b#files'),
+			array($url_depth, '../../donuts/brownies', 'http://user:pass@www.example.com:8080/path1/donuts/brownies?a=b#files'),
+
 		);
 	}
 
@@ -207,10 +233,10 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 			array('HTTP_URL_STRIP_PASS', 'http://user@www.example.com:8080/pub/index.php?a=b#files'),
 			array('HTTP_URL_STRIP_AUTH', 'http://www.example.com:8080/pub/index.php?a=b#files'),
 			array('HTTP_URL_STRIP_PORT', 'http://user:pass@www.example.com/pub/index.php?a=b#files'),
-			array('HTTP_URL_STRIP_PATH', 'http://user:pass@www.example.com:8080?a=b#files'),
+			array('HTTP_URL_STRIP_PATH', 'http://user:pass@www.example.com:8080/?a=b#files'),
 			array('HTTP_URL_STRIP_QUERY', 'http://user:pass@www.example.com:8080/pub/index.php#files'),
 			array('HTTP_URL_STRIP_FRAGMENT', 'http://user:pass@www.example.com:8080/pub/index.php?a=b'),
-			array('HTTP_URL_STRIP_ALL', 'http://www.example.com'),
+			array('HTTP_URL_STRIP_ALL', 'http://www.example.com/'),
 		);
 	}
 }
