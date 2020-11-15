@@ -170,7 +170,19 @@ class HttpBuildUrlTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($expected, $actual);
 	}
 
-	/**
+    public function testJoinPathThree()
+    {
+        $expected = "http://site.testing.com/apreview/testing/a/09-20a13/pa0a4/image/15.jpg";
+        $actual = http_build_url(
+            "http://site.testing.com/apreview/testing/a/09-20a13/pa0a4/?code=asdfghjkl",
+            array('path' => 'image/15.jpg'),
+            HTTP_URL_JOIN_PATH | HTTP_URL_STRIP_FRAGMENT | HTTP_URL_STRIP_QUERY
+        );
+
+        $this->assertSame($expected, $actual);
+    }
+
+    /**
 	 * @dataProvider bitmaskProvider
 	 */
 	public function testBitmasks($constant, $expected)
